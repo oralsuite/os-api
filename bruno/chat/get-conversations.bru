@@ -1,0 +1,15 @@
+meta {
+  name: Get Conversations
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/chat/conversations
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

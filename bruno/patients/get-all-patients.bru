@@ -1,0 +1,15 @@
+meta {
+  name: Get All Patients
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/patients
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

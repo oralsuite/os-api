@@ -1,0 +1,32 @@
+meta {
+  name: Create Patient
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/patients
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "firstName": "Maria",
+    "lastName": "Garcia",
+    "email": "maria@email.com",
+    "phone": "+1234567890",
+    "dateOfBirth": "1990-05-15",
+    "notes": "Paciente regular"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 || res.status === 201) {
+    bru.setEnvVar("patientId", res.body.id);
+  }
+}

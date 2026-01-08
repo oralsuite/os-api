@@ -47,12 +47,12 @@ export class CreateOrderItemDto {
 
 export class CreateOrderDto {
   @ApiProperty()
-  @IsUUID()
+  @IsUUID('all')
   laboratoryId: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  @IsUUID()
+  @IsUUID('all')
   patientId?: string;
 
   @ApiPropertyOptional()

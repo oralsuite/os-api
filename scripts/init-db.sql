@@ -507,7 +507,7 @@ CREATE TRIGGER generate_order_number_trigger
 
 -- Usuario Admin
 INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUES
-    ('00000000-0000-0000-0000-000000000001',
+    ('a0000000-0000-4000-a000-000000000001',
      'admin@oralsuite.com',
      crypt('admin123', gen_salt('bf')),
      'ADMIN',
@@ -516,7 +516,7 @@ INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUE
 
 -- Odontólogo de prueba
 INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUES
-    ('00000000-0000-0000-0000-000000000002',
+    ('a0000000-0000-4000-a000-000000000002',
      'dentist@test.com',
      crypt('password123', gen_salt('bf')),
      'DENTIST',
@@ -524,7 +524,7 @@ INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUE
      true);
 
 INSERT INTO dentist_profiles (user_id, first_name, last_name, license_number, clinic_name, clinic_city) VALUES
-    ('00000000-0000-0000-0000-000000000002',
+    ('a0000000-0000-4000-a000-000000000002',
      'Juan',
      'Pérez',
      'MP-12345',
@@ -533,7 +533,7 @@ INSERT INTO dentist_profiles (user_id, first_name, last_name, license_number, cl
 
 -- Laboratorio de prueba
 INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUES
-    ('00000000-0000-0000-0000-000000000003',
+    ('a0000000-0000-4000-a000-000000000003',
      'lab@test.com',
      crypt('password123', gen_salt('bf')),
      'LABORATORY',
@@ -541,7 +541,7 @@ INSERT INTO users (id, email, password_hash, role, is_active, is_verified) VALUE
      true);
 
 INSERT INTO laboratory_profiles (user_id, business_name, tax_id, city, work_types_offered, materials_offered) VALUES
-    ('00000000-0000-0000-0000-000000000003',
+    ('a0000000-0000-4000-a000-000000000003',
      'Laboratorio Dental Excellence',
      '30-12345678-9',
      'Buenos Aires',
@@ -550,14 +550,14 @@ INSERT INTO laboratory_profiles (user_id, business_name, tax_id, city, work_type
 
 -- Conexión entre odontólogo y laboratorio
 INSERT INTO dentist_laboratory_connections (dentist_id, laboratory_id, is_favorite) VALUES
-    ('00000000-0000-0000-0000-000000000002',
-     '00000000-0000-0000-0000-000000000003',
+    ('a0000000-0000-4000-a000-000000000002',
+     'a0000000-0000-4000-a000-000000000003',
      true);
 
 -- Paciente de prueba
 INSERT INTO patients (id, dentist_id, first_name, last_name, identifier) VALUES
-    ('00000000-0000-0000-0000-000000000010',
-     '00000000-0000-0000-0000-000000000002',
+    ('a0000000-0000-4000-a000-000000000010',
+     'a0000000-0000-4000-a000-000000000002',
      'María',
      'González',
      'DNI-12345678');
@@ -574,10 +574,10 @@ INSERT INTO orders (
     notes,
     due_date
 ) VALUES (
-    '00000000-0000-0000-0000-000000000020',
-    '00000000-0000-0000-0000-000000000002',
-    '00000000-0000-0000-0000-000000000003',
-    '00000000-0000-0000-0000-000000000010',
+    'a0000000-0000-4000-a000-000000000020',
+    'a0000000-0000-4000-a000-000000000002',
+    'a0000000-0000-4000-a000-000000000003',
+    'a0000000-0000-4000-a000-000000000010',
     'PENDING',
     'María González',
     'normal',
@@ -587,7 +587,7 @@ INSERT INTO orders (
 
 -- Item de la orden
 INSERT INTO order_items (order_id, work_type, teeth_numbers, material, shade, description) VALUES
-    ('00000000-0000-0000-0000-000000000020',
+    ('a0000000-0000-4000-a000-000000000020',
      'CROWN',
      ARRAY[16],
      'ZIRCONIA',
@@ -596,9 +596,9 @@ INSERT INTO order_items (order_id, work_type, teeth_numbers, material, shade, de
 
 -- Historial de estado
 INSERT INTO order_status_history (order_id, to_status, changed_by, notes) VALUES
-    ('00000000-0000-0000-0000-000000000020',
+    ('a0000000-0000-4000-a000-000000000020',
      'PENDING',
-     '00000000-0000-0000-0000-000000000002',
+     'a0000000-0000-4000-a000-000000000002',
      'Orden enviada al laboratorio');
 
 -- ===========================================

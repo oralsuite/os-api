@@ -1,0 +1,22 @@
+meta {
+  name: Update Patient
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/patients/{{patientId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "phone": "+0987654321",
+    "notes": "Paciente actualizado"
+  }
+}
