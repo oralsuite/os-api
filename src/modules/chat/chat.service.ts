@@ -16,12 +16,16 @@ export class ChatService {
   ) {}
 
   async createConversation(user: User, dto: CreateConversationDto): Promise<Conversation> {
+    const whereCondition: any = {
+      dentistId: user.id,
+      laboratoryId: dto.laboratoryId,
+    };
+    if (dto.orderId) {
+      whereCondition.orderId = dto.orderId;
+    }
+
     const existing = await this.conversationsRepository.findOne({
-      where: {
-        dentistId: user.id,
-        laboratoryId: dto.laboratoryId,
-        orderId: dto.orderId || null,
-      },
+      where: whereCondition,
     });
 
     if (existing) {
@@ -91,10 +95,12 @@ export class ChatService {
       lastMessageAt: new Date(),
     });
 
-    return this.messagesRepository.findOne({
+    const savedMessage = await this.messagesRepository.findOne({
       where: { id: message.id },
       relations: ['sender'],
     });
+
+    return savedMessage!;
   }
 
   async markAsRead(conversationId: string, user: User): Promise<void> {

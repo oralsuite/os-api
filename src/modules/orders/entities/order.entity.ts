@@ -50,7 +50,7 @@ export class Order {
   internalNotes: string;
 
   @Column({ name: 'due_date', type: 'date', nullable: true })
-  dueDate: Date;
+  dueDate: Date | null;
 
   @Column({ name: 'estimated_delivery', type: 'date', nullable: true })
   estimatedDelivery: Date;

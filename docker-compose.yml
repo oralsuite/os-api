@@ -5,8 +5,9 @@
 # Uso:
 #   docker compose up -d        # Levantar servicios
 #   docker compose down         # Parar servicios
-#   docker compose down -v      # Parar y eliminar datos
+#   docker compose down -v      # Parar y eliminar datos (resetear BD)
 #   docker compose logs -f      # Ver logs
+#   docker compose logs -f api  # Ver solo logs de la API
 #
 # Conexión a PostgreSQL (TablePlus, DBeaver, etc.):
 #   Host: localhost
@@ -15,8 +16,44 @@
 #   Password: oralsuite123
 #   Database: oralsuite
 #
+# API disponible en: http://localhost:3000
+#
 
 services:
+  # ===========================================
+  # API NestJS - Backend
+  # ===========================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oralsuite-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      API_PREFIX: api
+      # Base de datos - usar nombre del servicio 'postgres' como host
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: oralsuite
+      DB_PASSWORD: oralsuite123
+      DB_NAME: oralsuite
+      # JWT
+      JWT_SECRET: oralsuite-dev-secret-change-in-production-2024
+      JWT_EXPIRES_IN: 1d
+      JWT_REFRESH_SECRET: oralsuite-refresh-secret-change-in-production-2024
+      JWT_REFRESH_EXPIRES_IN: 7d
+      # CORS
+      CORS_ORIGINS: http://localhost:3100,http://localhost:3200
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - oralsuite-network
+
   # ===========================================
   # PostgreSQL - Base de Datos
   # ===========================================

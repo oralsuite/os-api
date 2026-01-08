@@ -19,7 +19,7 @@ export class OrderStatusHistory {
   orderId: string;
 
   @Column({ name: 'from_status', type: 'enum', enum: OrderStatus, enumName: 'order_status', nullable: true })
-  fromStatus: OrderStatus;
+  fromStatus: OrderStatus | null;
 
   @Column({ name: 'to_status', type: 'enum', enum: OrderStatus, enumName: 'order_status' })
   toStatus: OrderStatus;
