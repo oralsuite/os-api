@@ -1,4 +1,4 @@
-# Backend - OralSuite
+# os-api - OralSuite API
 
 API backend construida con NestJS como **monolito modular**.
 
@@ -16,10 +16,47 @@ API backend construida con NestJS como **monolito modular**.
 
 `3000`
 
+## Inicio Rápido
+
+```bash
+# 1. Levantar PostgreSQL
+docker compose up -d postgres
+
+# 2. Copiar variables de entorno
+cp .env.example .env
+
+# 3. Instalar dependencias
+pnpm install
+
+# 4. Iniciar en modo desarrollo
+pnpm start:dev
+
+# API disponible en http://localhost:3000
+# Swagger en http://localhost:3000/api/docs
+```
+
+## Conexión a Base de Datos (TablePlus/DBeaver)
+
+| Campo | Valor |
+|-------|-------|
+| Host | `localhost` |
+| Port | `5432` |
+| User | `oralsuite` |
+| Password | `oralsuite123` |
+| Database | `oralsuite` |
+
+## Usuarios de Prueba
+
+| Email | Password | Rol |
+|-------|----------|-----|
+| `admin@oralsuite.com` | `admin123` | Admin |
+| `dentist@test.com` | `password123` | Odontólogo |
+| `lab@test.com` | `password123` | Laboratorio |
+
 ## Arquitectura: Monolito Modular
 
 ```
-backend/
+os-api/
 ├── src/
 │   ├── main.ts                    # Punto de entrada
 │   ├── app.module.ts              # Módulo raíz
@@ -118,6 +155,10 @@ backend/
 │   ├── app.e2e-spec.ts
 │   └── jest-e2e.json
 │
+├── scripts/
+│   └── init-db.sql               # Script de inicialización BD
+│
+├── docker-compose.yml            # PostgreSQL para desarrollo
 ├── package.json
 ├── tsconfig.json
 ├── tsconfig.build.json
