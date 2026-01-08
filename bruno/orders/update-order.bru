@@ -1,0 +1,22 @@
+meta {
+  name: Update Order
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/orders/{{orderId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "notes": "Notas actualizadas",
+    "priority": "urgent"
+  }
+}

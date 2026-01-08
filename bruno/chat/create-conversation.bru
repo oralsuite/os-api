@@ -1,0 +1,28 @@
+meta {
+  name: Create Conversation
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/chat/conversations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "laboratoryId": "{{laboratoryId}}",
+    "orderId": "{{orderId}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 || res.status === 201) {
+    bru.setEnvVar("conversationId", res.body.id);
+  }
+}

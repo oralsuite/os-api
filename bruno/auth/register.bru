@@ -1,0 +1,26 @@
+meta {
+  name: Register
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "newuser@test.com",
+    "password": "password123",
+    "role": "dentist",
+    "dentistProfile": {
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "phone": "+1234567890",
+      "clinicName": "Clinica Dental",
+      "clinicAddress": "Calle 123"
+    }
+  }
+}

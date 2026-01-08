@@ -1,0 +1,22 @@
+meta {
+  name: Update Order Status
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/orders/{{orderId}}/status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "status": "in_progress",
+    "notes": "Comenzando trabajo en la orden"
+  }
+}

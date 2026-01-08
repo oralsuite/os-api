@@ -1,0 +1,15 @@
+meta {
+  name: Get Order Status History
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/orders/{{orderId}}/history
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
