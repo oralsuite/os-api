@@ -1,0 +1,86 @@
+# ===========================================
+# OralSuite - Docker Compose (Desarrollo)
+# ===========================================
+#
+# Uso:
+#   docker compose up -d        # Levantar servicios
+#   docker compose down         # Parar servicios
+#   docker compose down -v      # Parar y eliminar datos
+#   docker compose logs -f      # Ver logs
+#
+# Conexión a PostgreSQL (TablePlus, DBeaver, etc.):
+#   Host: localhost
+#   Port: 5432
+#   User: oralsuite
+#   Password: oralsuite123
+#   Database: oralsuite
+#
+
+services:
+  # ===========================================
+  # PostgreSQL - Base de Datos
+  # ===========================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: oralsuite-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: oralsuite
+      POSTGRES_PASSWORD: oralsuite123
+      POSTGRES_DB: oralsuite
+      # Timezone
+      TZ: America/Argentina/Buenos_Aires
+      PGTZ: America/Argentina/Buenos_Aires
+    ports:
+      - "5432:5432"
+    volumes:
+      # Datos persistentes
+      - postgres_data:/var/lib/postgresql/data
+      # Script de inicialización (se ejecuta solo la primera vez)
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oralsuite -d oralsuite"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - oralsuite-network
+
+  # ===========================================
+  # pgAdmin (Opcional) - UI para PostgreSQL
+  # ===========================================
+  # Descomentar si prefieres usar pgAdmin en lugar de TablePlus
+  #
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: oralsuite-pgadmin
+  #   restart: unless-stopped
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@oralsuite.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin123
+  #     PGADMIN_CONFIG_SERVER_MODE: "False"
+  #   ports:
+  #     - "5050:80"
+  #   volumes:
+  #     - pgadmin_data:/var/lib/pgadmin
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - oralsuite-network
+
+# ===========================================
+# Volúmenes Persistentes
+# ===========================================
+volumes:
+  postgres_data:
+    name: oralsuite-postgres-data
+  # pgadmin_data:
+  #   name: oralsuite-pgadmin-data
+
+# ===========================================
+# Red
+# ===========================================
+networks:
+  oralsuite-network:
+    name: oralsuite-network
+    driver: bridge
