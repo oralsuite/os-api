@@ -53,6 +53,11 @@ export class CreateOrderDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsUUID('all')
+  dentistId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUUID('all')
   patientId?: string;
 
   @ApiPropertyOptional()

@@ -20,12 +20,32 @@ export class DentistProfileDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  specialization?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   clinicName?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  clinicAddress?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  clinicPhone?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   clinicCity?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  clinicState?: string;
 }
 
 export class LaboratoryProfileDto {
@@ -41,12 +61,42 @@ export class LaboratoryProfileDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  contactName?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   city?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  state?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  postalCode?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   phone?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  website?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  description?: string;
 }
 
 export class RegisterDto {

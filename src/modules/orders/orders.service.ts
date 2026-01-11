@@ -18,9 +18,23 @@ export class OrdersService {
   ) {}
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
+    let dentistId: string;
+    let laboratoryId: string;
+
+    if (user.role === UserRole.LABORATORY) {
+      if (!dto.dentistId) {
+        throw new ForbiddenException('Laboratory must specify a dentist');
+      }
+      dentistId = dto.dentistId;
+      laboratoryId = user.id;
+    } else {
+      dentistId = user.id;
+      laboratoryId = dto.laboratoryId;
+    }
+
     const order = this.ordersRepository.create({
-      dentistId: user.id,
-      laboratoryId: dto.laboratoryId,
+      dentistId,
+      laboratoryId,
       patientId: dto.patientId,
       patientName: dto.patientName,
       priority: dto.priority || 'normal',
