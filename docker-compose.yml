@@ -74,7 +74,7 @@ services:
       # Datos persistentes
       - postgres_data:/var/lib/postgresql/data
       # Script de inicialización (se ejecuta solo la primera vez)
-      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./scripts/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U oralsuite -d oralsuite"]
       interval: 10s
